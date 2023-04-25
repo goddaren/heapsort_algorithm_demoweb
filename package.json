@@ -1,0 +1,25 @@
+{
+  "name": "heapsort",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@duskmoon/vue3-typed-js": "^0.0.4",
+    "@element-plus/icons-vue": "^2.1.0",
+    "@jsplumb/browser-ui": "^6.0.3",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "element-plus": "^2.3.3",
+    "vue": "^3.0.4",
+    "vue-typed-js": "^0.1.2"
+  },
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.0.4",
+    "typed.js": "^2.0.15",
+    "unplugin-auto-import": "^0.15.3",
+    "unplugin-icons": "^0.16.1",
+    "unplugin-vue-components": "^0.24.1",
+    "vite": "4.2.0"
+  }
+}
