@@ -273,7 +273,4 @@ function onSetData(d) {
   width: 60px;
   font-size: 10px;
 }
-/* .el-icon {
-  margin-right: 5px;
-} */
 </style>

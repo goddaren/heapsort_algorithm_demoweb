@@ -18,11 +18,13 @@ export default defineConfig({
                 prefix: 'Icon',
             }),],
         }),
+        // ...
         Components({
             resolvers: [IconsResolver({
                 enabledCollections: ['ep'],
             }), ElementPlusResolver()],
         }),
+        // ...
         Icons({
             autoInstall: true,
         }),
