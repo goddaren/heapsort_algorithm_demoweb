@@ -1,6 +1,6 @@
 # 介绍
 
-用Vue3写的堆排序算法动态演示网页，由<span style="color:4F0A59;font-weight: bold; ">莲</span>对算法进行解说。
+用Vue3写的堆排序算法动态演示网页，由莲对算法进行解说。在线查看页面：https://goddaren.github.io/heapsort
 
 ![lian.png](https://s2.loli.net/2023/04/25/VKbiUhRpTkcOZ91.png)
 
@@ -34,11 +34,15 @@ pnpm install
 pnpm dev
 ```
 
-根目录运行以下命令可以对网页进行打包。打包后的静态网页在`/dist`目录下，你可以把文件夹内的文件复制到你网站服务的根目录下。
+根目录运行以下命令可以对网页进行打包。打包后的静态网页在`/dist`目录下，你可以把文件夹内的文件复制到你网站服务的根目录下
 
 ```
 pnpm build
 ```
+
+## 说明
+
+堆排序的js核心算法在 `\src\components\DisplayData.vue` 中
 
 ## License
 
