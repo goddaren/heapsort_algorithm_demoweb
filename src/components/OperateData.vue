@@ -260,6 +260,10 @@ function onSetData(d) {
 </script>
 
 <style scoped>
+.el-button {
+  width: 100px;
+  height: 40px;
+}
 .jump-button {
   width: 50px;
   height: 31px;
@@ -269,4 +273,7 @@ function onSetData(d) {
   width: 60px;
   font-size: 10px;
 }
+/* .el-icon {
+  margin-right: 5px;
+} */
 </style>
