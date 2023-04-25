@@ -19,28 +19,6 @@ const initLine=() => {
     drawLine.container = newInstance({
         container: drawLine.el()
     });
-    // m = ct.connect({
-    //     source: t[0],
-    //     target: t[1],
-    //     connector: StraightConnector.type,
-    //     endpoint: {
-    //         type: DotEndpoint.type,
-    //         options: {
-    //             radius: 2
-    //         }
-    //     },
-
-
-    //     anchor: {
-    //         type: "Perimeter",
-    //         options: {
-    //             shape: "Circle"
-    //         }
-    //     }
-    // })
-    // ct.setDraggable(t[0], false);
-    // ct.setDraggable(t[1], false);
-    console.log(drawLine.container)
 }
 
 function updateLine() {

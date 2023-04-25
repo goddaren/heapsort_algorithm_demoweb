@@ -1,6 +1,10 @@
 {
   "name": "heapsort",
   "version": "1.0.0",
+  "description": "A visualization of the heapsort algorithm",
+  "author": {
+    "name": "Goddaren",
+    "email": "1067645971@qq.com"},
   "scripts": {
     "dev": "vite",
     "build": "vite build"

@@ -62,6 +62,59 @@ import Lian from "./Lian.vue";
 import dialogue from "../utils/LianDialogue.js";
 
 
+//堆排序核心算法
+function* maxHeapify(i) {
+  //先锚定被操作对象
+  let l = leftIndex(i);
+  let r = rightIndex(i);
+  if (!l) {
+    return
+  }
+  yield getTarget("compare", i, l, r)
+  //开始比较
+  let largest = i;
+  if (l != null && data[l].value > data[i].value) {
+    largest = l;
+  }
+  if (r != null && data[r].value > data[largest].value) {
+    largest = r;
+  }
+  yield getTarget("findmax", largest, i)
+  //找到最大的元素，将锚点指向它
+  if (largest != i) {
+    data.change(i, largest);
+    yield getTarget("continueheapify", largest)
+    yield* maxHeapify(largest)
+  }
+}
+
+//堆排序核心算法
+function* buildMaxHeap() {
+  for (let i = Math.floor((data.length) / 2 - 1); i >= 0; i--) {
+    yield getTarget("buildheap", i)
+    yield* maxHeapify(i);
+  }
+  yield getTarget("buildheapfinish")
+}
+
+//堆排序核心算法
+function* heapSort() {
+  //开始构造堆
+  yield* buildMaxHeap();
+  for (let i = data.length - 1; i > 0; i--) {
+    data.change(0, i);
+    datasorted.unshift(data.pop());
+    yield getTarget("adjustheapstart", i - 1)
+    yield* maxHeapify(0);
+    yield getTarget("adjustheapfinish", i - 1)
+    //堆建好了，接下来准备交换两个的位置
+  }
+  datasorted.unshift(data.pop());
+  return getTarget("heapsortfinish")
+  //全部完成了
+}
+
+
 
 function newDatas(values) {
   let tmp = [];
@@ -283,24 +336,6 @@ function getLineByIndex(index) {
   return info;
 }
 
-// function applyAllData(func) {
-//   const info = {
-//     index: 0,
-//     layer: 1,
-//     lineSum: 1,
-//     lineIndex: 0,
-//   };
-//   for (let i = 0; i < data.length; i++) {
-//     info.index = i;
-//     info.lineIndex += 1;
-//     func(info);
-//     if (info.lineIndex == info.lineSum) {
-//       info.layer++;
-//       info.lineSum *= 2;
-//       info.lineIndex = 0;
-//     }
-//   }
-// }
 
 function applyAllDataReverse(func) {
   const info = {
@@ -321,6 +356,8 @@ function applyAllDataReverse(func) {
   }
 }
 
+
+//处理heapsort的运行流程
 const process = heapSort();
 const emits = defineEmits(['sortFinish', 'operation','dialognext'])
 
@@ -410,63 +447,6 @@ function getTarget(msg, main, left = null, right = null) {
   return { msg, main, left, right }
 }
 
-function* maxHeapify(i) {
-  //先锚定被操作对象
-  let l = leftIndex(i);
-  let r = rightIndex(i);
-  if (!l) {
-    return
-  }
-  yield getTarget("compare", i, l, r)
-  //开始比较
-  let largest = i;
-  if (l != null && data[l].value > data[i].value) {
-    largest = l;
-  }
-  if (r != null && data[r].value > data[largest].value) {
-    largest = r;
-  }
-  yield getTarget("findmax", largest, i)
-  //找到最大的元素，将锚点指向它
-  if (largest != i) {
-    data.change(i, largest);
-
-    // if(!leftIndex(largest)){
-    //   yield getTarget("endheapifychanged",largest)
-    //   return
-    // }
-    yield getTarget("continueheapify", largest)
-    yield* maxHeapify(largest)
-  }
-  else {
-    // yield getTarget("endheapifyunchanged",largest)
-  }
-}
-
-function* buildMaxHeap() {
-  for (let i = Math.floor((data.length) / 2 - 1); i >= 0; i--) {
-    yield getTarget("buildheap", i)
-    yield* maxHeapify(i);
-  }
-  yield getTarget("buildheapfinish")
-}
-
-function* heapSort() {
-  //开始构造堆
-  yield* buildMaxHeap();
-  for (let i = data.length - 1; i > 0; i--) {
-    data.change(0, i);
-    datasorted.unshift(data.pop());
-    yield getTarget("adjustheapstart", i - 1)
-    yield* maxHeapify(0);
-    yield getTarget("adjustheapfinish", i - 1)
-    //堆建好了，接下来准备交换两个的位置
-  }
-  datasorted.unshift(data.pop());
-  return getTarget("heapsortfinish")
-  //全部完成了
-}
-
 function applyPointNode(msg) {
   switch (msg.msg) {
     case "buildheap":
@@ -530,7 +510,6 @@ function applyPointNode(msg) {
 }
 
 //下面开始写Lian对话框控制
-
 
 const datacontact=reactive({
   text:dialogue.start.text,
